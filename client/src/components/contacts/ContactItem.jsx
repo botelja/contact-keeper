@@ -18,15 +18,15 @@ const ContactItem = ({ contact }) => {
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </span>
         </h5>
-        <ul className="list-group">
+        <ul className="list-unstyled">
           {email && (
-            <li className="list-group-item">
+            <li>
               <i className="far fa-envelope mr-2"></i>
               {email}
             </li>
           )}
           {phone && (
-            <li className="list-group-item">
+            <li>
               <i className="fas fa-phone mr-2"></i>
               {phone}
             </li>
