@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import AuthContext from '../../context/auth/authContext';
 
 const Navbar = ({ title, icon }) => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, user, logout } = authContext;
+
+  const onLogOut = () => {
+    logout();
+  };
+
+  const authLinks = (
+    <Fragment>
+      <li>Hello {user && user.name}</li>
+      <li>
+        <a href="#!" className="text-body ml-2" onClick={onLogOut}>
+          <i className="fas fa-sign-out-alt"></i> <span>Logout</span>
+        </a>
+      </li>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <li className="nav-item">
+        <Link className="nav-link" to="/register">
+          Register
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/login">
+          Login
+        </Link>
+      </li>
+    </Fragment>
+  );
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <p className="h4 mt-2">
@@ -11,26 +45,7 @@ const Navbar = ({ title, icon }) => {
       </p>
 
       <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/">
-            Home
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/about">
-            About
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Register
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            Login
-          </Link>
-        </li>
+        {isAuthenticated ? authLinks : guestLinks}
       </ul>
     </nav>
   );
