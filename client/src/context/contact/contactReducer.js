@@ -32,6 +32,11 @@ export default (state, action) => {
           (contact) => contact.id !== action.payload
         )
       };
+    case CONTACT_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
     case SET_CURRENT:
       return {
         ...state,
